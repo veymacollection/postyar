@@ -1,4 +1,4 @@
-import json, os, asyncio
+import json, os, asyncio, random
 from telegram import Update
 from telegram.ext import Application, MessageHandler, filters, ContextTypes
 
@@ -7,7 +7,8 @@ groups = {}
 
 def footer():
     with open("config.json", encoding="utf-8") as f:
-        return json.load(f)["caption_footer"]
+        data = json.load(f)
+    return random.choice(data["captions"]) + "\n\n" + data["contact"]
 
 async def edit_last(msg):
     old = msg.caption or ""
